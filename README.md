@@ -5,5 +5,5 @@ Simple sinatra image suitable for demo purpose. Replace `main.rb` to your `main.
 
 ```
 # In local with your tmp/main.rb
-docker run -it -p 8080:80 -v $PWD/tmp:/app docker-sinatra
+docker run -it -p 8080:80 -v $PWD/tmp:/app taiki45/sinatra
 ```
