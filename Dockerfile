@@ -2,14 +2,12 @@ FROM ruby:2.6
 LABEL maintainer="m@taiki.dev"
 
 ENV RACK_ENV production
-ENV APP_FILE /app/main.rb
 
 RUN gem install sinatra
 
-COPY start.sh /
-RUN mkdir -p /app
-COPY main.rb /app/
+RUN mkdir -p /src
+COPY app.rb /src
 
-WORKDIR /app
+WORKDIR /src
 EXPOSE 80
-CMD ["/bin/bash", "/start.sh"]
+CMD ["/usr/local/bin/ruby", "/src/app.rb", "-p", "80", "-o", "0.0.0.0"]

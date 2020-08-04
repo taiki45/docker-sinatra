@@ -1,19 +1,19 @@
 docker-sinatra
 ==============
 
-Simple sinatra image suitable for demo purpose. Replace `main.rb` to your `main.rb` with volume mount etc.
+Simple sinatra image suitable for demo purpose. Replace `app.rb` to your `app.rb` with volume mount etc.
 
-Local Docker with your `tmp/main.rb`:
+Local Docker with your `tmp/app.rb`:
 
 ```ruby
-# tmp/main.rb
+# tmp/app.rb
 require 'sinatra'
 
 get('/') { 'test' }
 ```
 
 ```bash
-docker run -it -p 8080:80 -v $PWD/tmp:/app taiki45/sinatra
+docker run -it -p 8080:80 -v $PWD/tmp:/src taiki45/sinatra
 ```
 
 Kubernetes:
@@ -41,7 +41,7 @@ spec:
         - containerPort: 80
         volumeMounts:
           - name: app-file
-            mountPath: /app
+            mountPath: /src
       volumes:
         - name: app-file
           configMap:
@@ -52,7 +52,7 @@ apiVersion: v1
 metadata:
   name: hello-app
 data:
-  main.rb: |
+  app.rb: |
     require 'sinatra'
 
     get '/' do
